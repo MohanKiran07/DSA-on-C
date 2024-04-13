@@ -14,7 +14,7 @@ struct node*create(int d)
     struct node*nn=(struct node*)malloc(sizeof(struct node));
     if(nn==NULL)
     {
-        printf("Fail");
+        printf("Memory Allocation Fail");
         exit(1);
     }
     nn->d=d;
