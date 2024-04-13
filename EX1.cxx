@@ -122,6 +122,23 @@ void DP(struct node**h,int p)
  free(t);
  }
  }
+
+void search(struct node *head,int key)
+{
+ int c=0;
+ struct node *t=head;
+ while(t!=NULL)
+ {
+   c++;
+   if(key==t->data)
+   {
+    printf("Key is found at position %d",c);
+    return;
+   }
+   t=t->next;
+ }
+ printf("Key is not found\n");
+}
                
  
  void display(struct node**head)
@@ -140,7 +157,7 @@ void DP(struct node**h,int p)
 int main()   
 {
            struct node*h=NULL,*nn=NULL,*t=NULL;
-           int c,d,x,p;
+           int c,d,k,x,p;
            do{
                printf("Enter Data into the Node:");
                scanf("%d",&d) ;
@@ -150,7 +167,7 @@ int main()
                scanf("%d",&c);
                }while(c==1);
      
-               printf("\n~~~~~~~~~~~~~~~~~~\nOperations\n1.Insert at biginning\n2.insert at End\n3.Insert at specific position\n4.Delete at biginning\n5.Delete at End\n6.Delete at specific Position\n0.Exit\n~~~~~~~~~~~~~~~~~~\n\n");
+               printf("\n~~~~~~~~~~~~~~~~~~\nOperations\n1.Insert at biginning\n2.insert at End\n3.Insert at specific position\n4.Delete at biginning\n5.Delete at End\n6.Delete at specific Position\n7.search operation\n0.Exit\n~~~~~~~~~~~~~~~~~~\n\n");
                while(1)
                {
                    printf("Enter your Choice:");
@@ -202,6 +219,11 @@ int main()
                        printf("Linked List After Insertion\n");
                        display(&h);
                        break;
+
+                       case 7:
+                       printf("Enter Search Key:\n");
+                       scanf("%d",&k);
+                       search (&h,k);
                        
                        case 0:
                        printf("Program Exit!");
