@@ -73,6 +73,11 @@ void IB(struct node**head,int d)
  
  void DB(struct node**h)
  {
+     if(*h==NULL)
+     {
+         printf("Linked List is Empty");
+     }
+     
      struct node*t=*h;
      *h=(*h)->next;
      free(t);
@@ -82,6 +87,10 @@ void IB(struct node**head,int d)
  
  void DE(struct node**h)
  {
+     if(*h==NULL)
+     {
+         printf("Linked List is Empty");
+     }
      struct node*t=*h;
      struct node*prev=NULL;
      while(t->next!=NULL)
@@ -104,6 +113,10 @@ void IB(struct node**head,int d)
   
 void DP(struct node**h,int p)
 {
+ if(*h==NULL)
+     {
+         printf("Linked List is Empty");
+     }
  if(p<=1)
  {
      DB(h);
