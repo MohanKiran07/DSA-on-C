@@ -320,7 +320,7 @@ int main()
                        printf("Enter the position:\n");
                        scanf("%d",&p);
                        DP(&h,p);
-                       printf("Linked List After Insertion\n");
+                       printf("Linked List After Deletion\n");
                        display(&h);
                        break;
                        
