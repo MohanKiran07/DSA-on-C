@@ -1,0 +1,104 @@
+#include<stdio.h>
+#include<stdbool.h>
+#define MAX 100
+
+
+int s[MAX],t=-1;
+
+bool isempty()
+{
+    return t==-1;
+}
+
+bool isfull()
+{
+    return t==MAX-1;
+}
+
+void push(int v)
+{
+    if(isfull())
+    {
+        printf("Stack is Over Flow\n");
+        return;
+    }
+    s[++t]=v;
+    printf("%d is Pushed into the Stack\n",v);
+}
+
+int pop()
+{
+    if(isempty())
+    {
+        printf("Stack Is Under Flow\n");
+        return -1;
+    }
+    printf("%d is Popped from the Stack\n",s[t]);
+    t--;
+    s[t];
+}
+
+int peek()
+{
+    if(isempty())
+    {
+        printf("Stack is Under Flow\n");
+        return -1;
+    }
+    printf("The Top Element of the Stack is %d\n",s[t]);
+}
+
+void display()
+{
+    if(isempty())
+    {
+        printf("Stack is Empty\n");
+        return;
+    }
+    printf("STACK:\n===========\n");
+    for(int i=t;i>=0;i--)
+    {
+        printf("%d    ",s[i]);
+    }
+    printf("\n===========\n");
+}
+
+int main()
+{
+   int c,v;
+   printf("Stack Operations:\n1.Push\n2.Pop\n3.Peek\n4.Display\n0.Exit\n");
+   do
+   {
+    printf("Enter your Choice:");
+    scanf("%d",&c);
+    switch(c)
+    {
+        case 1:
+        printf("Enter Value to Push into Stack:");
+        scanf("%d",&v);
+        push(v); 
+        break;  
+        
+        case 2:
+        pop();
+        break;
+        
+        case 3:
+        peek();
+        break;
+        
+        case 4:
+        display();
+        break;
+        
+        case 0:
+        printf("Exit!\n");
+        break;
+        
+        default:
+        printf("\nInvalid\n");
+        
+    }
+   }while(c!=0);
+}
+        
