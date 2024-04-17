@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct node 
+{
+   int d;
+   struct node*n;
+};
+
+
+struct st
+{
+    struct node*tp;
+};
+
+
+struct node*nn(int d)
+{
+    struct node*t=(struct node*)malloc(sizeof(struct node));
+    t->d=d;
+    t->n=NULL;
+    return t;
+}
+
+
+struct st*create()
+{
+    struct st*s=(struct st*)malloc(sizeof(struct st));
+    s->tp=NULL;
+    return s;
+}
+
+
+int isempty(struct st*s)
+{
+    return(s->tp==NULL);
+}
+
+
+void push(struct st*s,int d)
+{
+    struct node*t=nn(d);
+    t->n=s->tp;
+    s->tp=t;
+    printf("%d is Popped into the Stack\n",t->d);
+}
+
+
+int pop(struct st*s)
+{
+    if(isempty(s))
+    {
+        printf("Stack is Under Flow\n");
+        return -1;
+    }
+    struct node*t=s->tp;
+    int p=t->d;
+    s->tp=t->n;
+    free(t);
+    printf("%d is Popped from the Stack\n",p);
+}
+
+
+int peek(struct st*s)
+{
+    if(isempty(s))
+    {
+        printf("Stack is Under Flow\n");
+        return -1;
+    }
+    printf("Top the Stack is %d\n",s->tp->d);
+}
+
+
+void display(struct st*s)
+{
+    if(isempty(s))
+    {
+        printf("Stack is Under Flow\n");
+        return;
+    }
+    struct node*t=s->tp;
+    printf("STACK:\n==========\n");
+    while(t!=NULL)
+    {
+        printf("%d    ",t->d);
+        t=t->n;
+    }
+    printf("\n==========\n");
+}
+
+
+int main()
+{
+  struct st*s=create();
+  int v,c;
+  printf("Stack Operations:\n1.Push\n2.Pop\n3.Peek\n4.Display\n0.Exit\n");
+   do
+   {
+    printf("Enter your Choice:");
+    scanf("%d",&c);
+    switch(c)
+    {
+        case 1:
+        printf("Enter Value to Push into Stack:");
+        scanf("%d",&v);
+        push(s,v); 
+        break;  
+        
+        case 2:
+        pop(s);
+        break;
+        
+        case 3:
+        peek(s);
+        break;
+        
+        case 4:
+        display(s);
+        break;
+        
+        case 0:
+        printf("Exit!\n");
+        break;
+        
+        default:
+        printf("\nInvalid\n");
+        
+    }
+   }while(c!=0);
+}
