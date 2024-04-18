@@ -1,132 +1,117 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-
-struct node 
-{
-   int d;
-   struct node*n;
+// Node structure for linked list implementation of stack
+struct Node {
+    int data;
+    struct Node *next;
 };
 
-
-struct st
-{
-    struct node*tp;
+// Stack structure to hold top pointer
+struct Stack {
+    struct Node *top;
 };
 
-
-struct node*nn(int d)
-{
-    struct node*t=(struct node*)malloc(sizeof(struct node));
-    t->d=d;
-    t->n=NULL;
-    return t;
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
 }
 
-
-struct st*create()
-{
-    struct st*s=(struct st*)malloc(sizeof(struct st));
-    s->tp=NULL;
-    return s;
+// Function to create an empty stack
+struct Stack* createStack() {
+    struct Stack *stack = (struct Stack*)malloc(sizeof(struct Stack));
+    stack->top = NULL;
+    return stack;
 }
 
-
-int isempty(struct st*s)
-{
-    return(s->tp==NULL);
+// Function to check if the stack is empty
+int isEmpty(struct Stack *stack) {
+    return (stack->top == NULL);
 }
 
-
-void push(struct st*s,int d)
-{
-    struct node*t=nn(d);
-    t->n=s->tp;
-    s->tp=t;
-    printf("%d is Popped into the Stack\n",t->d);
+// Function to push an element onto the stack
+void push(struct Stack *stack, int data) {
+    struct Node *newNode = createNode(data);
+    newNode->next = stack->top;
+    stack->top = newNode;
+    printf("%d is Pushed into the Stack\n", data);
 }
 
-
-int pop(struct st*s)
-{
-    if(isempty(s))
-    {
-        printf("Stack is Under Flow\n");
+// Function to pop an element from the stack
+int pop(struct Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is Underflow\n");
         return -1;
     }
-    struct node*t=s->tp;
-    int p=t->d;
-    s->tp=t->n;
-    free(t);
-    printf("%d is Popped from the Stack\n",p);
+    struct Node *temp = stack->top;
+    int poppedValue = temp->data;
+    stack->top = temp->next;
+    free(temp);
+    printf("%d is Popped from the Stack\n", poppedValue);
+    return poppedValue;
 }
 
-
-int peek(struct st*s)
-{
-    if(isempty(s))
-    {
-        printf("Stack is Under Flow\n");
+// Function to peek at the top element of the stack
+int peek(struct Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is Underflow\n");
         return -1;
     }
-    printf("Top the Stack is %d\n",s->tp->d);
+    printf("Top element of the Stack is %d\n", stack->top->data);
+    return stack->top->data;
 }
 
-
-void display(struct st*s)
-{
-    if(isempty(s))
-    {
-        printf("Stack is Under Flow\n");
+// Function to display the elements of the stack
+void display(struct Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is Underflow\n");
         return;
     }
-    struct node*t=s->tp;
+    struct Node *temp = stack->top;
     printf("STACK:\n==========\n");
-    while(t!=NULL)
-    {
-        printf("%d    ",t->d);
-        t=t->n;
+    while (temp != NULL) {
+        printf("%d    ", temp->data);
+        temp = temp->next;
     }
     printf("\n==========\n");
 }
 
+// Main function to demonstrate stack operations
+int main() {
+    struct Stack *stack = createStack();
+    int value, choice;
+    
+    printf("Stack Operations:\n1. Push\n2. Pop\n3. Peek\n4. Display\n0. Exit\n");
 
-int main()
-{
-  struct st*s=create();
-  int v,c;
-  printf("Stack Operations:\n1.Push\n2.Pop\n3.Peek\n4.Display\n0.Exit\n");
-   do
-   {
-    printf("Enter your Choice:");
-    scanf("%d",&c);
-    switch(c)
-    {
-        case 1:
-        printf("Enter Value to Push into Stack:");
-        scanf("%d",&v);
-        push(s,v); 
-        break;  
-        
-        case 2:
-        pop(s);
-        break;
-        
-        case 3:
-        peek(s);
-        break;
-        
-        case 4:
-        display(s);
-        break;
-        
-        case 0:
-        printf("Exit!\n");
-        break;
-        
-        default:
-        printf("\nInvalid\n");
-        
-    }
-   }while(c!=0);
+    do {
+        printf("Enter your Choice:");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter Value to Push into Stack:");
+                scanf("%d", &value);
+                push(stack, value);
+                break;
+            case 2:
+                pop(stack);
+                break;
+            case 3:
+                peek(stack);
+                break;
+            case 4:
+                display(stack);
+                break;
+            case 0:
+                printf("Exit!\n");
+                break;
+            default:
+                printf("\nInvalid Choice\n");
+        }
+    } while (choice != 0);
+
+    return 0;
 }
