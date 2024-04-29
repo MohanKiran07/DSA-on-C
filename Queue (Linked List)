@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define a structure for a node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* front = NULL;
+struct Node* rear = NULL;
+
+// Function to check if the queue is empty
+int isEmpty() {
+    return front == NULL;
+}
+
+// Function to enqueue an element into the queue
+void enqueue(int item) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = item;
+    newNode->next = NULL;
+    if (rear == NULL) {
+        front = rear = newNode;
+        return;
+    }
+    rear->next = newNode;
+    rear = newNode;
+}
+
+// Function to dequeue an element from the queue
+void dequeue() {
+    if (isEmpty()) {
+        printf("Queue is empty\n");
+        return;
+    }
+    struct Node* temp = front;
+    front = front->next;
+    if (front == NULL) {
+        rear = NULL;
+    }
+    free(temp);
+}
+
+// Function to get the front element of the queue
+int peek() {
+    if (isEmpty()) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    return front->data;
+}
+
+// Function to display the queue
+void display() {
+    if (isEmpty()) {
+        printf("Queue is empty\n");
+        return;
+    }
+    struct Node* temp = front;
+    printf("\nQUEUE:\n====================\n");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n====================\n");
+}
+
+int main() {
+    int item, choice;
+    do {
+        printf("\n1. Enqueue\n2. Dequeue\n3. Peek\n4. Display\n0. Exit\nEnter your Choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter Value: ");
+                scanf("%d", &item);
+                enqueue(item);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                item = peek();
+                if (item != -1) {
+                    printf("Front Element: %d\n", item);
+                }
+                break;
+            case 4:
+                display();
+                break;
+            case 0:
+                printf("Exiting!\n");
+                break;
+            default:
+                printf("Invalid Choice\n");
+        }
+    } while (choice != 0);
+
+    return 0;
+}
